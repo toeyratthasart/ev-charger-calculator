@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องคำนวณค่าไฟชาร์จรถ EV SHIMA-CHAN</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <style>
+  *{box-sizing:border-box}
+  body{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 10px; background: var(--color-background-secondary, #f5f5f7)}
+  .app{padding:0 0 2rem; max-width: 600px; margin: 0 auto;}
+  .header{display:flex;align-items:center;gap:14px;padding:1.25rem 0 1rem;border-bottom:0.5px solid var(--color-border-tertiary, #e5e5ea);margin-bottom:1.25rem}
+  .logo-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:72px;height:56px;border-radius:12px;border:0.5px solid var(--color-border-tertiary, #e5e5ea);background:#fff;flex-shrink:0;gap:3px;padding:6px 8px}
+  .logo-wrap svg{width:100%;height:auto}
+  .car-name{font-size:9px;font-weight:500;letter-spacing:.08em;color:#d70c19;text-align:center;line-height:1}
+  .header-text h1{font-size:17px;font-weight:500;margin:0;color:var(--color-text-primary, #000)}
+  .header-text p{font-size:13px;color:var(--color-text-secondary, #86868b);margin:0}
+  .stitle{font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--color-text-tertiary, #8e8e93);text-transform:uppercase;margin:0 0 10px}
+  .card{background:var(--color-background-primary, #fff);border:0.5px solid var(--color-border-tertiary, #e5e5ea);border-radius:12px;padding:1rem 1.125rem;margin-bottom:12px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field label{font-size:12px;color:var(--color-text-secondary, #86868b)}
+  .field input[type=number]{width:100%; padding: 6px; border: 0.5px solid #ccc; border-radius: 6px;}
+  .sl-row{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  .sl-row label{font-size:13px;color:var(--color-text-secondary, #86868b);min-width:110px}
+  .sl-row input[type=range]{flex:1}
+  .sval{font-size:14px;font-weight:500;min-width:46px;text-align:right;color:var(--color-text-primary, #000)}
+  .prog-wrap{background:var(--color-background-secondary, #f5f5f7);border-radius:100px;height:8px;overflow:hidden;margin:6px 0 3px}
+  .prog-bar{height:100%;border-radius:100px;background:#378ADD;transition:width .2s}
+  .prog-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--color-text-tertiary, #8e8e93)}
+  .tou-banner{border-radius:8px;padding:9px 13px;display:flex;align-items:center;gap:9px;margin-bottom:10px}
+  .tou-banner.peak{background:#FAEEDA;border:0.5px solid #EF9F27}
+  .tou-banner.offpeak{background:#EAF3DE;border:0.5px solid #639922}
+  .tou-banner.manual{background:var(--color-background-secondary, #f5f5f7);border:0.5px solid var(--color-border-secondary, #d1d1d6)}
+  .tou-banner.custom{background:#E3F2FD;border:0.5px solid #2196F3}
+  .tdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .tdot.peak{background:#BA7517}
+  .tdot.offpeak{background:#3B6D11}
+  .tdot.manual{background:var(--color-text-tertiary, #8e8e93)}
+  .tdot.custom{background:#2196F3}
+  .ttext{font-size:12px;font-weight:500}
+  .ttext.peak{color:#633806}
+  .ttext.offpeak{color:#27500A}
+  .ttext.manual{color:var(--color-text-secondary, #86868b)}
+  .ttext.custom{color:#1565C0}
+  .tou-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .tc{border-radius:8px;padding:10px 12px;border:0.5px solid var(--color-border-tertiary, #e5e5ea)}
+  .tc.peak{background:#FAEEDA}
+  .tc.offpeak{background:#EAF3DE}
+  .tc .tcl{font-size:11px;margin-bottom:2px}
+  .tc.peak .tcl{color:#854F0B}
+  .tc.offpeak .tcl{color:#3B6D11}
+  .tc .tcr{font-size:18px;font-weight:500}
+  .tc.peak .tcr{color:#412402}
+  .tc.offpeak .tcr{color:#173404}
+  .tc .tcs{font-size:11px;margin-top:1px}
+  .tc.peak .tcs{color:#854F0B}
+  .tc.offpeak .tcs{color:#3B6D11}
+  .mode-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:10px}
+  .mode-wrap span{font-size:12px;color:var(--color-text-secondary, #86868b);flex-shrink:0}
+  .mbtn{font-size:12px;padding:5px 11px;border-radius:100px;border:0.5px solid var(--color-border-secondary, #d1d1d6);background:var(--color-background-primary, #fff);color:var(--color-text-secondary, #86868b);cursor:pointer;transition:all .15s}
+  .mbtn.active{background:#E3F2FD;color:#1565C0;border-color:transparent}
+  .mbtn.active.cpeak{background:#FAEEDA;color:#412402;border-color:#EF9F27}
+  .mbtn.active.coffpeak{background:#EAF3DE;color:#173404;border-color:#639922}
+  .custom-box{background:var(--color-background-secondary, #f5f5f7);border-radius:8px;padding:12px 14px;margin-bottom:10px;border:0.5px solid var(--color-border-tertiary, #e5e5ea)}
+  .custom-box .cb-title{font-size:12px;font-weight:500;color:var(--color-text-secondary, #86868b);margin-bottom:10px}
+  .charger-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-bottom:10px}
+  .cpreset{border-radius:8px;padding:8px 10px;border:0.5px solid var(--color-border-secondary, #d1d1d6);background:var(--color-background-primary, #fff);cursor:pointer;text-align:left;transition:all .15s}
+  .cpreset:hover{background:var(--color-background-secondary, #f5f5f7)}
+  .cpreset.sel{border-color:#2196F3;background:#E3F2FD}
+  .cpreset .cp-name{font-size:12px;font-weight:500;color:var(--color-text-primary, #000)}
+  .cpreset.sel .cp-name{color:#1565C0}
+  .cpreset .cp-rate{font-size:11px;color:var(--color-text-secondary, #86868b);margin-top:2px}
+  .cpreset.sel .cp-rate{color:#1565C0}
+  .ft-note{padding:8px 11px;background:var(--color-background-secondary, #f5f5f7);border-radius:8px;font-size:11px;color:var(--color-text-secondary, #86868b);display:flex;gap:6px;align-items:flex-start}
+  .divider{border:none;border-top:0.5px solid var(--color-border-tertiary, #e5e5ea);margin:12px 0}
+  .rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px;margin-bottom:10px}
+  .metric{background:var(--color-background-secondary, #f5f5f7);border-radius:8px;padding:10px 12px}
+  .metric .ml{font-size:11px;color:var(--color-text-secondary, #86868b);margin-bottom:3px}
+  .metric .mv{font-size:18px;font-weight:500;color:var(--color-text-primary, #000)}
+  .metric .mu{font-size:11px;color:var(--color-text-secondary, #86868b);margin-top:1px}
+  .total-row{background:#E3F2FD;border-radius:8px;padding:14px 16px;display:flex;align-items:baseline;gap:10px}
+  .total-row .tl{font-size:14px;color:#1565C0}
+  .total-row .tv{font-size:30px;font-weight:500;color:#1565C0}
+  .total-row .tu{font-size:14px;color:#1565C0}
+  .note-row{font-size:11px;color:var(--color-text-tertiary, #8e8e93);margin-top:8px;line-height:1.6}
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 480" aria-label="BYD logo">
+        <path style="fill:#d70c19" transform="matrix(17.307692,0,0,17.307692,60.000016,61.073857)" d="M 23.46,0.377 C 21.84,0.347 14.81,0.327 10.71,0.327 H 0 v 3.85 c 8.62,0 18.85,-0.02 23.33,0.05 0.8,0.01 1.59,0.09 2.22,0.65 0.59,0.52 0.79,1.34 0.53,2.05 -0.42,1.15 -1.59,1.43 -2.75,1.45 -1.78,0.03 -6.65,0.04 -10.29,0.04 -8.93,0.01 -5.06,0 -13.04,0 v 3.84 c 8.62,0 18.87,-0.02 23.33,0.05 1.39,0.02 2.86,0.5 2.86,2.06 0,1.56 -1.47,2.06 -2.86,2.08 -4.45,0.07 -14.71,0.05 -23.33,0.05 v 3.85 c 8.65,0 19.97,0.03 23.46,-0.05 1.84,-0.04 4.57,-0.51 6.15,-2.91 1.49,-2.25 1.13,-5.18 -0.83,-7.05 1.96,-1.88 2.32,-4.81 0.83,-7.05 -1.59,-2.4 -4.31,-2.86 -6.15,-2.91 z M 92.18,0.435 C 89.9,0.385 86.45,0.355 83.41,0.345 75.99,0.315 80.45,0.325 73.38,0.325 v 3.86 c 7.53,0 12.8,-0.06 18.61,0.1 1.71,0.05 3.54,0.23 5.19,1.37 1.56,1.08 2.49,2.81 2.49,4.67 0,1.86 -0.9,3.59 -2.46,4.68 -1.65,1.14 -3.48,1.32 -5.19,1.37 -5.81,0.16 -11.09,0.1 -18.61,0.1 l -0.03,3.86 c 7.57,0 13.01,0.03 18.8,-0.11 2.32,-0.05 5.17,-0.32 7.81,-2.21 2.5,-1.79 4.01,-4.6 4.01,-7.7 0,-3.1 -1.51,-5.91 -4.01,-7.7 v 0.03 C 97.36,0.755 94.5,0.485 92.18,0.435 Z M 39.61,6.267 c -0.01,-1.86 0,-4.06 0,-5.94 h -4.45 c 0,1.9 -0.04,5.76 0.04,7.63 0.15,3.62 1.33,4.75 5.03,4.88 2.57,0.09 4.6,0.06 8.15,0.05 v -3.88 c -2.84,0 -4,0 -6.1,-0.03 -2.02,-0.04 -2.66,-0.7 -2.67,-2.71 z m 16.46,2.74 z m 0.01,3.88 z m -0.02,0 z m -0.01,-3.88 z m 0.02,0 c 2.08,0 4.62,-0.01 5.58,-0.03 2.02,-0.04 2.66,-0.68 2.67,-2.64 h 0.03 v -6.01 h 4.44 v 5.84 c -0.01,0.68 -0.02,1.3 -0.04,1.79 -0.15,3.65 -1.34,4.76 -5.27,4.88 -1.28,0.05 -4.68,0.05 -7.4,0.05 h -0.53 v 7.46 H 50.32 V 9.007 Z"/>
+      </svg>
+      <div class="car-name">SHIMA-CHAN</div>
+    </div>
+    <div class="header-text">
+      <h1>SHIMA-CHAN — EV Charging Cost</h1>
+      <p>BYD Dolphin Standard Range · 50.25 kWh</p>
+    </div>
+  </div>
+
+  <p class="stitle"><i class="ti ti-battery-charging" aria-hidden="true" style="font-size:13px;margin-right:4px"></i>แบตเตอรี่</p>
+  <div class="card">
+    <div class="field-row">
+      <div class="field">
+        <label>ขนาดแบต (kWh)</label>
+        <input type="number" id="bat-total" value="50.25" step="0.01" min="1" max="200">
+      </div>
+      <div class="field">
+        <label>ประสิทธิภาพการชาร์จ (%)</label>
+        <input type="number" id="efficiency" value="90" step="1" min="50" max="100">
+      </div>
+    </div>
+    <div class="sl-row" style="margin-top:4px">
+      <label>แบตปัจจุบัน</label>
+      <input type="range" id="bat-now" min="0" max="100" value="54" step="1">
+      <span class="sval" id="bat-now-val">54%</span>
+    </div>
+    <div class="sl-row">
+      <label>ชาร์จถึง</label>
+      <input type="range" id="bat-target" min="1" max="100" value="100" step="1">
+      <span class="sval" id="bat-target-val">100%</span>
+    </div>
+    <div class="prog-wrap"><div class="prog-bar" id="prog-fill" style="width:54%"></div></div>
+    <div class="prog-labels"><span id="pl-now">ปัจจุบัน 54%</span><span id="pl-target">เป้าหมาย 100%</span></div>
+  </div>
+
+  <p class="stitle"><i class="ti ti-bolt" aria-hidden="true" style="font-size:13px;margin-right:4px"></i>อัตราค่าไฟฟ้า</p>
+  <div class="card">
+    <div id="tou-banner" class="tou-banner offpeak">
+      <div id="tou-dot" class="tdot offpeak"></div>
+      <span id="tou-text" class="ttext offpeak">ตอนนี้: Off-Peak (ราคาประหยัด)</span>
+    </div>
+
+    <div class="tou-grid">
+      <div class="tc peak">
+        <div class="tcl"><i class="ti ti-sun" aria-hidden="true" style="font-size:11px;margin-right:3px"></i>On-Peak (จ.–ศ. 09:00–22:00)</div>
+        <div class="tcr" id="peak-display">5.96</div>
+        <div class="tcs">บาท/หน่วย รวม Ft+VAT</div>
+      </div>
+      <div class="tc offpeak">
+        <div class="tcl"><i class="ti ti-moon" aria-hidden="true" style="font-size:11px;margin-right:3px"></i>Off-Peak (22:00–09:00 + เสาร์/อาทิตย์)</div>
+        <div class="tcr" id="offpeak-display">2.94</div>
+        <div class="tcs">บาท/หน่วย รวม Ft+VAT</div>
+      </div>
+    </div>
+
+    <div class="mode-wrap">
+      <span>โหมด:</span>
+      <button class="mbtn active" id="btn-auto" onclick="setMode('auto')">อัตโนมัติ</button>
+      <button class="mbtn cpeak" id="btn-peak" onclick="setMode('peak')">On-Peak</button>
+      <button class="mbtn coffpeak" id="btn-offpeak" onclick="setMode('offpeak')">Off-Peak</button>
+      <button class="mbtn" id="btn-custom" onclick="setMode('custom')"><i class="ti ti-plug" aria-hidden="true" style="font-size:12px;margin-right:3px"></i>หัวชาร์จสาธารณะ / กำหนดเอง</button>
+    </div>
+
+    <div id="custom-section" style="display:none">
+      <div class="custom-box">
+        <div class="cb-title"><i class="ti ti-plug" aria-hidden="true" style="font-size:13px;margin-right:4px"></i>เลือก preset หัวชาร์จ หรือกรอกเองด้านล่าง</div>
+        <div class="charger-grid" id="preset-grid">
+          <button class="cpreset" onclick="selectPreset(this,6.50,'EA Anywhere')" data-rate="6.50">
+            <div class="cp-name">EA Anywhere</div>
+            <div class="cp-rate">~6.50 บาท/หน่วย</div>
+          </button>
+          <button class="cpreset" onclick="selectPreset(this,8.50,'SHARGE')" data-rate="8.50">
+            <div class="cp-name">SHARGE</div>
+            <div class="cp-rate">~8.50 บาท/หน่วย</div>
+          </button>
+          <button class="cpreset" onclick="selectPreset(this,7.00,'PTT EV Station')" data-rate="7.00">
+            <div class="cp-name">PTT EV Station</div>
+            <div class="cp-rate">~7.00 บาท/หน่วย</div>
+          </button>
+          <button class="cpreset" onclick="selectPreset(this,8.00,'OR EV')" data-rate="8.00">
+            <div class="cp-name">OR EV</div>
+            <div class="cp-rate">~8.00 บาท/หน่วย</div>
+          </button>
+          <button class="cpreset" onclick="selectPreset(this,7.50,'BYD Official')" data-rate="7.50">
+            <div class="cp-name">BYD Official</div>
+            <div class="cp-rate">~7.50 บาท/หน่วย</div>
+          </button>
+          <button class="cpreset" onclick="selectPreset(this,0,'กำหนดเอง')" data-rate="0" id="preset-custom">
+            <div class="cp-name">กำหนดเอง</div>
+            <div class="cp-rate">ใส่ราคาด้านล่าง</div>
+          </button>
+        </div>
+        <div class="field-row" style="margin-bottom:4px">
+          <div class="field">
+            <label>ราคาต่อหน่วย (บาท/kWh)</label>
+            <input type="number" id="custom-price" value="6.50" step="0.01" min="0.1" max="100">
+          </div>
+          <div class="field">
+            <label>ค่าบริการต่อครั้ง (บาท)</label>
+            <input type="number" id="session-fee" value="0" step="1" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-note">
+      <i class="ti ti-info-circle" aria-hidden="true" style="font-size:14px;flex-shrink:0;margin-top:1px"></i>
+      <span id="ft-note-text">MEA/PEA บ้านอยู่อาศัย (ประเภท 1.3 TOU) + Ft 0.1623 บาท/หน่วย งวด พ.ค.–ส.ค. 2569 + VAT 7% | อัตราหัวชาร์จสาธารณะเป็นค่าประมาณ อาจเปลี่ยนตามโปรโมชัน</span>
+    </div>
+  </div>
+
+  <p class="stitle"><i class="ti ti-receipt" aria-hidden="true" style="font-size:13px;margin-right:4px"></i>ผลการคำนวณ</p>
+  <div class="card">
+    <div class="rg">
+      <div class="metric"><div class="ml">ชาร์จเพิ่ม</div><div class="mv" id="r-pct">—</div><div class="mu">% ของแบต</div></div>
+      <div class="metric"><div class="ml">ไฟเข้าแบต</div><div class="mv" id="r-bat">—</div><div class="mu">kWh</div></div>
+      <div class="metric"><div class="ml">ไฟจากปลั๊ก</div><div class="mv" id="r-wall">—</div><div class="mu">kWh</div></div>
+      <div class="metric"><div class="ml">อัตราที่ใช้</div><div class="mv" id="r-rate">—</div><div class="mu">บาท/หน่วย</div></div>
+    </div>
+    <div class="total-row">
+      <span class="tl">ค่าไฟประมาณการ</span>
+      <span class="tv" id="r-total">—</span>
+      <span class="tu">บาท</span>
+    </div>
+    <div class="note-row" id="r-note"></div>
+  </div>
+
+</div>
+
+<script>
+const PEAK_BASE = 5.7982, OFFPEAK_BASE = 2.6369, FT = 0.1623, VAT = 1.07;
+const PEAK_FINAL = parseFloat(((PEAK_BASE+FT)*VAT).toFixed(2));
+const OFFPEAK_FINAL = parseFloat(((OFFPEAK_BASE+FT)*VAT).toFixed(2));
+document.getElementById('peak-display').textContent = PEAK_FINAL.toFixed(2);
+document.getElementById('offpeak-display').textContent = OFFPEAK_FINAL.toFixed(2);
+
+let mode = 'auto';
+
+function isOffPeakNow() {
+  const now = new Date(); const d = now.getDay(); const h = now.getHours()+now.getMinutes()/60;
+  return (d===0||d===6||h<9||h>=22);
+}
+
+function setMode(m) {
+  mode = m;
+  ['auto','peak','offpeak','custom'].forEach(x => {
+    const b = document.getElementById('btn-'+x);
+    if(b) b.classList.remove('active');
+  });
+  const ab = document.getElementById('btn-'+m);
+  if(ab) ab.add ? ab.add('active') : ab.classList.add('active');
+  document.getElementById('custom-section').style.display = m==='custom'?'block':'none';
+  calc();
+}
+
+function selectPreset(el, rate, name) {
+  document.querySelectorAll('.cpreset').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  if(rate > 0) {
+    document.getElementById('custom-price').value = rate;
+  }
+  calc();
+}
+
+function getRate() {
+  if(mode==='custom') return parseFloat(document.getElementById('custom-price').value)||6.50;
+  if(mode==='peak') return PEAK_FINAL;
+  if(mode==='offpeak') return OFFPEAK_FINAL;
+  return isOffPeakNow() ? OFFPEAK_FINAL : PEAK_FINAL;
+}
+
+function isOffPeakMode() {
+  if(mode==='offpeak') return true;
+  if(mode==='peak') return false;
+  if(mode==='auto') return isOffPeakNow();
+  return null;
+}
+
+function updateBanner() {
+  const b = document.getElementById('tou-banner');
+  const d = document.getElementById('tou-dot');
+  const t = document.getElementById('tou-text');
+  const op = isOffPeakMode();
+  if(mode==='custom') {
+    b.className='tou-banner custom'; d.className='tdot custom'; t.className='ttext custom';
+    const sel = document.querySelector('.cpreset.sel');
+    t.textContent = sel ? 'หัวชาร์จ: '+sel.querySelector('.cp-name').textContent : 'กำหนดอัตราเอง';
+  } else {
+    const cls = op?'offpeak':'peak';
+    b.className='tou-banner '+cls; d.className='tdot '+cls; t.className='ttext '+cls;
+    if(mode==='auto') t.textContent='ตอนนี้: '+(op?'Off-Peak (ราคาประหยัด)':'On-Peak (ราคาสูง)');
+    else t.textContent='คำนวณด้วยอัตรา '+(op?'Off-Peak':'On-Peak');
+  }
+}
+
+function calc() {
+  updateBanner();
+  const batTotal = parseFloat(document.getElementById('bat-total').value)||50.25;
+  const eff = (parseFloat(document.getElementById('efficiency').value)||90)/100;
+  const now = parseInt(document.getElementById('bat-now').value);
+  const target = parseInt(document.getElementById('bat-target').value);
+  const sessionFee = mode==='custom'?(parseFloat(document.getElementById('session-fee').value)||0):0;
+  const rate = getRate();
+
+  document.getElementById('bat-now-val').textContent = now+'%';
+  document.getElementById('bat-target-val').textContent = target+'%';
+  document.getElementById('pl-now').textContent = 'ปัจจุบัน '+now+'%';
+  document.getElementById('pl-target').textContent = 'เป้าหมาย '+target+'%';
+  document.getElementById('prog-fill').style.width = Math.max(0,Math.min(100,now))+'%';
+
+  const pct = Math.max(0, target-now);
+  const kwhBat = (pct/100)*batTotal;
+  const kwhWall = eff>0 ? kwhBat/eff : kwhBat;
+  const total = kwhWall*rate + sessionFee;
+
+  document.getElementById('r-pct').textContent = pct+'%';
+  document.getElementById('r-bat').textContent = kwhBat.toFixed(2);
+  document.getElementById('r-wall').textContent = kwhWall.toFixed(2);
+  document.getElementById('r-rate').textContent = rate.toFixed(2);
+  document.getElementById('r-total').textContent = total.toLocaleString('th-TH',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  let note = kwhWall.toFixed(2)+' kWh × '+rate.toFixed(2)+' บาท/หน่วย';
+  if(sessionFee>0) note += ' + ค่าบริการ '+sessionFee.toFixed(0)+' บาท';
+  if(mode!=='custom') note += (isOffPeakMode()!==null?' | '+(isOffPeakMode()?'Off-Peak':'On-Peak'):'') + ' | รวม Ft+VAT';
+  note += ' | ประสิทธิภาพ '+(eff*100).toFixed(0)+'%';
+  document.getElementById('r-note').textContent = note;
+}
+
+['bat-total','efficiency','custom-price','session-fee'].forEach(id=>{
+  const el=document.getElementById(id); if(el) el.addEventListener('input',calc);
+});
+document.getElementById('bat-now').addEventListener('input',function(){
+  const n=parseInt(this.value), t=parseInt(document.getElementById('bat-target').value);
+  if(n>=t) document.getElementById('bat-target').value=Math.min(100,n+1);
+  calc();
+});
+document.getElementById('bat-target').addEventListener('input',function(){
+  const t=parseInt(this.value), n=parseInt(document.getElementById('bat-now').value);
+  if(t<=n) document.getElementById('bat-now').value=Math.max(0,t-1);
+  calc();
+});
+
+calc();
+setInterval(()=>{if(mode==='auto')calc();},60000);
+</script>
+
+</body>
+</html>
