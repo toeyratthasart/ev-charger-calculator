@@ -8,109 +8,117 @@
   
   <style>
   :root {
-    --bg-main: #f2f2f7;
+    /* ปรับโทนสีหลักให้ดูนุ่มนวลและทันสมัยขึ้น */
+    --bg-main: #f0f4f8; 
     --bg-card: #ffffff;
-    --text-primary: #1c1c1e;
-    --text-secondary: #8e8e93;
-    --text-tertiary: #aeaea2;
-    --color-accent: #007aff;
-    --radius-lg: 16px;
-    --radius-md: 12px;
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --text-primary: #1e293b; /* สีเทาเข้มเกือบดำ */
+    --text-secondary: #64748b; /* สีเทากลาง */
+    --text-tertiary: #94a3b8; /* สีเทาอ่อน */
+    --color-accent: #3b82f6; /* สีน้ำเงินสดใส */
+    --radius-lg: 20px; /* เพิ่มความโค้งมนให้ดูน่าใช้งาน */
+    --radius-md: 14px;
+    --shadow-soft: 0 8px 24px rgba(149, 157, 165, 0.1); /* ปรับเงาให้นุ่มลึกขึ้น */
+    --border-color: #e2e8f0;
   }
 
-  * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+  * { box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
   
-  /* รองรับ Safe Area ของ iPhone ขอบจอ รอยบาก และแถบ Home ล่าง */
   body { 
     background-color: var(--bg-main); 
     margin: 0; 
-    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); 
+    padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); 
     color: var(--text-primary); 
     -webkit-text-size-adjust: 100%;
   }
   
   .app { max-width: 600px; margin: 0 auto; width: 100%; }
   
-  .header { display: flex; align-items: center; gap: 16px; padding: 12px 4px 20px; }
-  .logo-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 68px; height: 68px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-soft); flex-shrink: 0; gap: 4px; padding: 8px; border: 1px solid rgba(0,0,0,0.02); }
+  /* Header Premium Look */
+  .header { display: flex; align-items: center; gap: 16px; padding: 12px 4px 24px; border-bottom: 1px solid var(--border-color); margin-bottom: 24px;}
+  .logo-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-soft); flex-shrink: 0; gap: 4px; padding: 10px; border: 1px solid rgba(0,0,0,0.03); }
   .logo-wrap svg { width: 100%; height: auto; }
-  .car-name { font-size: 9px; font-weight: 700; letter-spacing: .05em; color: #d70c19; text-align: center; line-height: 1; }
-  .header-text h1 { font-size: 20px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.5px; }
-  .header-text p { font-size: 13px; color: var(--text-secondary); margin: 0; font-weight: 400; }
+  .car-name { font-size: 10px; font-weight: 700; letter-spacing: .05em; color: #ef4444; text-align: center; line-height: 1; } /* สีแดงที่สดขึ้น */
+  .header-text h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.5px; color: var(--text-primary); }
+  .header-text p { font-size: 14px; color: var(--text-secondary); margin: 0; font-weight: 400; }
   
-  .stitle { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; margin: 24px 0 8px 4px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; }
+  .stitle { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; margin: 24px 0 10px 4px; display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px; }
   
-  .card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); }
+  /* Modern iOS Card Style */
+  .card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.02); }
   
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
-  /* ฟอนต์ขนาด 16px ป้องกัน iOS Safari ซูมหน้าจออัตโนมัติ */
-  .field input[type=number] { width: 100%; padding: 12px; border: none; background: #f2f2f7; border-radius: 10px; font-size: 16px; font-weight: 600; color: var(--text-primary); outline: none; transition: background 0.2s; }
-  .field input[type=number]:focus { background: #e5e5ea; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+  .field input[type=number] { width: 100%; padding: 14px; border: 1px solid var(--border-color); background: #f8fafc; border-radius: 12px; font-size: 16px; font-weight: 600; color: var(--text-primary); outline: none; transition: all 0.2s ease; }
+  .field input[type=number]:focus { background: #fff; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
   
-  /* ขยายขนาดปุ่ม Slider เพื่อให้นิ้วสัมผัสง่ายขึ้น (Touch Targets) */
-  .sl-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  /* iOS-like Sliders */
+  .sl-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
   .sl-row label { font-size: 14px; font-weight: 500; color: var(--text-primary); min-width: 90px; }
-  .sl-row input[type=range] { flex: 1; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; background: #e5e5ea; outline: none; }
-  .sl-row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.25); cursor: pointer; }
-  .sval { font-size: 15px; font-weight: 600; min-width: 46px; text-align: right; color: var(--color-accent); }
+  .sl-row input[type=range] { flex: 1; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; background: #e2e8f0; outline: none; }
+  .sl-row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer; border: 1px solid rgba(0,0,0,0.05); }
+  .sval { font-size: 16px; font-weight: 600; min-width: 48px; text-align: right; color: var(--color-accent); }
   
-  .prog-wrap { background: #e5e5ea; border-radius: 100px; height: 6px; overflow: hidden; margin: 16px 0 6px; }
-  .prog-bar { height: 100%; border-radius: 100px; background: var(--color-accent); transition: width .2s; }
-  .prog-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+  .prog-wrap { background: #e2e8f0; border-radius: 100px; height: 8px; overflow: hidden; margin: 20px 0 8px; }
+  .prog-bar { height: 100%; border-radius: 100px; background: var(--color-accent); transition: width .3s ease; }
+  .prog-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-secondary); font-weight: 500; }
   
-  .tou-banner { border-radius: var(--radius-md); padding: 12px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-weight: 600; }
-  .tou-banner.peak { background: #fff2e0; color: #8f5000; }
-  .tou-banner.offpeak { background: #eaf6ec; color: #237039; }
-  .tou-banner.custom { background: #e6f4fe; color: #0061c2; }
-  .tdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .tdot.peak { background: #ff9500; }
-  .tdot.offpeak { background: #34c759; }
-  .tdot.custom { background: #007aff; }
-  .ttext { font-size: 13px; line-height: 1.2; }
+  /* Banners with softer tones */
+  .tou-banner { border-radius: var(--radius-md); padding: 14px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-weight: 600; border: 1px solid transparent;}
+  .tou-banner.peak { background: #fff7ed; color: #c2410c; border-color: #ffedd5; }
+  .tou-banner.offpeak { background: #f0fdf4; color: #15803d; border-color: #dcfce7; }
+  .tou-banner.custom { background: #eff6ff; color: #1d4ed8; border-color: #dbeafe; }
+  .tdot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .tdot.peak { background: #f97316; }
+  .tdot.offpeak { background: #22c55e; }
+  .tdot.custom { background: #3b82f6; }
+  .ttext { font-size: 14px; line-height: 1.2; }
   
-  .tou-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-  .tc { border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; justify-content: space-between; }
-  .tc.peak { background: #fdf7ee; border: 1px solid #ffe3c2; }
-  .tc.offpeak { background: #f4faf6; border: 1px solid #d4eedb; }
-  .tc .tcl { font-size: 11px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 4px; line-height: 1.3; }
+  .tou-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .tc { border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease; }
+  .tc:hover { transform: translateY(-2px); }
+  .tc.peak { background: #fffaf5; border: 1px solid #ffedd5; }
+  .tc.offpeak { background: #f8fafc; border: 1px solid #e2e8f0; } /* ปรับสี offpeak ให้ดูคลีนขึ้น */
+  .tc .tcl { font-size: 12px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
   .tc .tcl i { margin-top: 1px; }
-  .tc.peak .tcl { color: #b26a00; }
-  .tc.offpeak .tcl { color: #2e7d32; }
-  .tc .tcr { font-size: 24px; font-weight: 700; color: var(--text-primary); }
-  .tc .tcs { font-size: 11px; margin-top: 4px; color: var(--text-secondary); }
+  .tc.peak .tcl { color: #d97706; }
+  .tc.offpeak .tcl { color: #0f172a; }
+  .tc .tcr { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+  .tc .tcs { font-size: 12px; margin-top: 6px; color: var(--text-tertiary); }
   
-  .mode-wrap { display: flex; background: #e5e5ea; padding: 3px; border-radius: 12px; margin-bottom: 16px; gap: 2px; }
-  .mbtn { flex: 1; text-align: center; font-size: 12px; font-weight: 600; padding: 10px 4px; border-radius: 10px; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; }
-  .mbtn.active { background: #ffffff; color: var(--text-primary); box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.04); }
+  /* Segmented Control Mode Tabs */
+  .mode-wrap { display: flex; background: #f1f5f9; padding: 4px; border-radius: 14px; margin-bottom: 20px; gap: 4px; border: 1px solid var(--border-color); }
+  .mbtn { flex: 1; text-align: center; font-size: 13px; font-weight: 600; padding: 12px 6px; border-radius: 10px; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; }
+  .mbtn.active { background: #ffffff; color: var(--color-accent); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
   
-  .custom-box { background: #f2f2f7; border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px; }
-  .custom-box .cb-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; }
-  /* ฟิกซ์เป็น 2 คอลัมน์เป๊ะๆ สำหรับจอแคบหรือ Pro Max */
-  .charger-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
-  .cpreset { border-radius: 10px; padding: 12px 10px; border: 1px solid #e5e5ea; background: #fff; cursor: pointer; text-align: left; transition: all .15s; }
-  .cpreset.sel { border-color: var(--color-accent); background: #e6f4fe; box-shadow: 0 0 0 1px var(--color-accent); }
-  .cpreset .cp-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-  .cpreset .cp-rate { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+  /* Public Charger Presets */
+  .custom-box { background: #f8fafc; border-radius: var(--radius-md); padding: 20px; margin-bottom: 16px; border: 1px solid var(--border-color); }
+  .custom-box .cb-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+  .charger-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+  .cpreset { border-radius: 12px; padding: 14px 12px; border: 1px solid var(--border-color); background: #fff; cursor: pointer; text-align: left; transition: all .2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+  .cpreset:hover { border-color: #cbd5e1; transform: translateY(-1px); }
+  .cpreset.sel { border-color: var(--color-accent); background: #eff6ff; box-shadow: 0 0 0 1px var(--color-accent); }
+  .cpreset .cp-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .cpreset.sel .cp-name { color: var(--color-accent); }
+  .cpreset .cp-rate { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
   
-  .ft-note { padding: 12px 14px; background: #f2f2f7; border-radius: 12px; font-size: 11px; color: var(--text-secondary); display: flex; gap: 10px; line-height: 1.4; align-items: flex-start; }
+  .ft-note { padding: 14px 16px; background: #f8fafc; border-radius: 12px; font-size: 12px; color: var(--text-secondary); display: flex; gap: 10px; line-height: 1.5; align-items: flex-start; border: 1px solid var(--border-color); }
   
-  .rg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
-  .metric { background: #f2f2f7; border-radius: var(--radius-md); padding: 14px; }
-  .metric .ml { font-size: 12px; color: var(--text-secondary); font-weight: 500; margin-bottom: 6px; }
-  .metric .mv { font-size: 22px; font-weight: 700; color: var(--text-primary); }
-  .metric .mu { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  /* Clean Metrics Grid */
+  .rg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+  .metric { background: #f8fafc; border-radius: var(--radius-md); padding: 16px; border: 1px solid var(--border-color); }
+  .metric .ml { font-size: 13px; color: var(--text-secondary); font-weight: 500; margin-bottom: 8px; }
+  .metric .mv { font-size: 24px; font-weight: 700; color: var(--text-primary); }
+  .metric .mu { font-size: 13px; color: var(--text-tertiary); margin-top: 4px; }
   
-  .total-row { background: #e6f4fe; border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
-  .total-row .tl { font-size: 14px; font-weight: 600; color: #0061c2; text-transform: uppercase; letter-spacing: 0.5px; }
-  .total-row .right-total { display: flex; align-items: baseline; gap: 6px; justify-content: center; }
-  .total-row .tv { font-size: 40px; font-weight: 800; color: #0061c2; letter-spacing: -1px; line-height: 1; }
-  .total-row .tu { font-size: 16px; font-weight: 600; color: #0061c2; }
-  .note-row { font-size: 11px; color: var(--text-secondary); margin-top: 12px; text-align: center; font-weight: 500; line-height: 1.5; padding: 0 10px; }
+  /* Grand Total Box */
+  .total-row { background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; border: 1px solid #c7d2fe; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1); }
+  .total-row .tl { font-size: 15px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: 0.5px; }
+  .total-row .right-total { display: flex; align-items: baseline; gap: 8px; justify-content: center; }
+  .total-row .tv { font-size: 46px; font-weight: 800; color: #3730a3; letter-spacing: -1px; line-height: 1; }
+  .total-row .tu { font-size: 18px; font-weight: 600; color: #4338ca; }
+  .note-row { font-size: 12px; color: var(--text-secondary); margin-top: 16px; text-align: center; font-weight: 500; line-height: 1.6; padding: 0 10px; }
 
-  /* Media query รองรับจอเล็กมากเผื่อไว้ */
   @media (max-width: 380px) {
     .mode-wrap { flex-direction: column; }
     .mbtn { width: 100%; }
@@ -125,7 +133,7 @@
   <div class="header">
     <div class="logo-wrap">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 480" aria-label="BYD logo">
-        <path style="fill:#d70c19" transform="matrix(17.307692,0,0,17.307692,60.000016,61.073857)" d="M 23.46,0.377 C 21.84,0.347 14.81,0.327 10.71,0.327 H 0 v 3.85 c 8.62,0 18.85,-0.02 23.33,0.05 0.8,0.01 1.59,0.09 2.22,0.65 0.59,0.52 0.79,1.34 0.53,2.05 -0.42,1.15 -1.59,1.43 -2.75,1.45 -1.78,0.03 -6.65,0.04 -10.29,0.04 -8.93,0.01 -5.06,0 -13.04,0 v 3.84 c 8.62,0 18.87,-0.02 23.33,0.05 1.39,0.02 2.86,0.5 2.86,2.06 0,1.56 -1.47,2.06 -2.86,2.08 -4.45,0.07 -14.71,0.05 -23.33,0.05 v 3.85 c 8.65,0 19.97,0.03 23.46,-0.05 1.84,-0.04 4.57,-0.51 6.15,-2.91 1.49,-2.25 1.13,-5.18 -0.83,-7.05 1.96,-1.88 2.32,-4.81 0.83,-7.05 -1.59,-2.4 -4.31,-2.86 -6.15,-2.91 z M 92.18,0.435 C 89.9,0.385 86.45,0.355 83.41,0.345 75.99,0.315 80.45,0.325 73.38,0.325 v 3.86 c 7.53,0 12.8,-0.06 18.61,0.1 1.71,0.05 3.54,0.23 5.19,1.37 1.56,1.08 2.49,2.81 2.49,4.67 0,1.86 -0.9,3.59 -2.46,4.68 -1.65,1.14 -3.48,1.32 -5.19,1.37 -5.81,0.16 -11.09,0.1 -18.61,0.1 l -0.03,3.86 c 7.57,0 13.01,0.03 18.8,-0.11 2.32,-0.05 5.17,-0.32 7.81,-2.21 2.5,-1.79 4.01,-4.6 4.01,-7.7 0,-3.1 -1.51,-5.91 -4.01,-7.7 v 0.03 C 97.36,0.755 94.5,0.485 92.18,0.435 Z M 39.61,6.267 c -0.01,-1.86 0,-4.06 0,-5.94 h -4.45 c 0,1.9 -0.04,5.76 0.04,7.63 0.15,3.62 1.33,4.75 5.03,4.88 2.57,0.09 4.6,0.06 8.15,0.05 v -3.88 c -2.84,0 -4,0 -6.1,-0.03 -2.02,-0.04 -2.66,-0.7 -2.67,-2.71 z m 16.46,2.74 z m 0.01,3.88 z m -0.02,0 z m -0.01,-3.88 z m 0.02,0 c 2.08,0 4.62,-0.01 5.58,-0.03 2.02,-0.04 2.66,-0.68 2.67,-2.64 h 0.03 v -6.01 h 4.44 v 5.84 c -0.01,0.68 -0.02,1.3 -0.04,1.79 -0.15,3.65 -1.34,4.76 -5.27,4.88 -1.28,0.05 -4.68,0.05 -7.4,0.05 h -0.53 v 7.46 H 50.32 V 9.007 Z"/>
+        <path style="fill:#ef4444" transform="matrix(17.307692,0,0,17.307692,60.000016,61.073857)" d="M 23.46,0.377 C 21.84,0.347 14.81,0.327 10.71,0.327 H 0 v 3.85 c 8.62,0 18.85,-0.02 23.33,0.05 0.8,0.01 1.59,0.09 2.22,0.65 0.59,0.52 0.79,1.34 0.53,2.05 -0.42,1.15 -1.59,1.43 -2.75,1.45 -1.78,0.03 -6.65,0.04 -10.29,0.04 -8.93,0.01 -5.06,0 -13.04,0 v 3.84 c 8.62,0 18.87,-0.02 23.33,0.05 1.39,0.02 2.86,0.5 2.86,2.06 0,1.56 -1.47,2.06 -2.86,2.08 -4.45,0.07 -14.71,0.05 -23.33,0.05 v 3.85 c 8.65,0 19.97,0.03 23.46,-0.05 1.84,-0.04 4.57,-0.51 6.15,-2.91 1.49,-2.25 1.13,-5.18 -0.83,-7.05 1.96,-1.88 2.32,-4.81 0.83,-7.05 -1.59,-2.4 -4.31,-2.86 -6.15,-2.91 z M 92.18,0.435 C 89.9,0.385 86.45,0.355 83.41,0.345 75.99,0.315 80.45,0.325 73.38,0.325 v 3.86 c 7.53,0 12.8,-0.06 18.61,0.1 1.71,0.05 3.54,0.23 5.19,1.37 1.56,1.08 2.49,2.81 2.49,4.67 0,1.86 -0.9,3.59 -2.46,4.68 -1.65,1.14 -3.48,1.32 -5.19,1.37 -5.81,0.16 -11.09,0.1 -18.61,0.1 l -0.03,3.86 c 7.57,0 13.01,0.03 18.8,-0.11 2.32,-0.05 5.17,-0.32 7.81,-2.21 2.5,-1.79 4.01,-4.6 4.01,-7.7 0,-3.1 -1.51,-5.91 -4.01,-7.7 v 0.03 C 97.36,0.755 94.5,0.485 92.18,0.435 Z M 39.61,6.267 c -0.01,-1.86 0,-4.06 0,-5.94 h -4.45 c 0,1.9 -0.04,5.76 0.04,7.63 0.15,3.62 1.33,4.75 5.03,4.88 2.57,0.09 4.6,0.06 8.15,0.05 v -3.88 c -2.84,0 -4,0 -6.1,-0.03 -2.02,-0.04 -2.66,-0.7 -2.67,-2.71 z m 16.46,2.74 z m 0.01,3.88 z m -0.02,0 z m -0.01,-3.88 z m 0.02,0 c 2.08,0 4.62,-0.01 5.58,-0.03 2.02,-0.04 2.66,-0.68 2.67,-2.64 h 0.03 v -6.01 h 4.44 v 5.84 c -0.01,0.68 -0.02,1.3 -0.04,1.79 -0.15,3.65 -1.34,4.76 -5.27,4.88 -1.28,0.05 -4.68,0.05 -7.4,0.05 h -0.53 v 7.46 H 50.32 V 9.007 Z"/>
       </svg>
       <div class="car-name">SHIMA-CHAN</div>
     </div>
@@ -135,7 +143,7 @@
     </div>
   </div>
 
-  <p class="stitle"><i class="ti ti-battery-charging"></i>แบตเตอรี่</p>
+  <p class="stitle"><i class="ti ti-battery-charging" style="font-size:16px;"></i>แบตเตอรี่</p>
   <div class="card">
     <div class="field-row">
       <div class="field">
@@ -161,7 +169,7 @@
     <div class="prog-labels"><span id="pl-now">ปัจจุบัน 54%</span><span id="pl-target">เป้าหมาย 100%</span></div>
   </div>
 
-  <p class="stitle"><i class="ti ti-bolt"></i>อัตราค่าไฟฟ้า</p>
+  <p class="stitle"><i class="ti ti-bolt" style="font-size:16px;"></i>อัตราค่าไฟฟ้า</p>
   <div class="card">
     <div id="tou-banner" class="tou-banner offpeak">
       <div id="tou-dot" class="tdot offpeak"></div>
@@ -170,12 +178,12 @@
 
     <div class="tou-grid">
       <div class="tc peak">
-        <div class="tcl"><i class="ti ti-sun" style="font-size:14px"></i>On-Peak<br>(จ.–ศ. 09:00–22:00)</div>
+        <div class="tcl"><i class="ti ti-sun" style="font-size:16px"></i>On-Peak<br>(จ.–ศ. 09:00–22:00)</div>
         <div class="tcr" id="peak-display">6.38</div>
         <div class="tcs">บาท/หน่วย รวม Ft+VAT</div>
       </div>
       <div class="tc offpeak">
-        <div class="tcl"><i class="ti ti-moon" style="font-size:14px"></i>Off-Peak<br>(22:00–09:00 + ส.-อา.)</div>
+        <div class="tcl"><i class="ti ti-moon" style="font-size:16px"></i>Off-Peak<br>(22:00–09:00 + ส.-อา.)</div>
         <div class="tcr" id="offpeak-display">3.00</div>
         <div class="tcs">บาท/หน่วย รวม Ft+VAT</div>
       </div>
@@ -190,37 +198,38 @@
 
     <div id="custom-section" style="display:none">
       <div class="custom-box">
-        <div class="cb-title">เลือก Preset หรือกรอกเอง</div>
+        <div class="cb-title">เลือก Preset หัวชาร์จ DC</div>
         <div class="charger-grid" id="preset-grid">
-          <button class="cpreset" onclick="selectPreset(this,6.50,'EA Anywhere')">
-            <div class="cp-name">EA Anywhere</div>
-            <div class="cp-rate">~6.50 บ./หน่วย</div>
+           <!-- อ้างอิงราคาสำหรับ DC Fast Charge -->
+          <button class="cpreset" onclick="selectPreset(this, 'RÊVERSHARGER')" data-peak="8.00" data-offpeak="8.00">
+            <div class="cp-name">RÊVERSHARGER</div><div class="cp-rate"></div>
           </button>
-          <button class="cpreset" onclick="selectPreset(this,8.50,'SHARGE')">
-            <div class="cp-name">SHARGE</div>
-            <div class="cp-rate">~8.50 บ./หน่วย</div>
+          <button class="cpreset" onclick="selectPreset(this, 'EV Station PluZ')" data-peak="8.20" data-offpeak="6.60">
+            <div class="cp-name">EV Station PluZ</div><div class="cp-rate"></div>
           </button>
-          <button class="cpreset" onclick="selectPreset(this,7.00,'PTT EV Station')">
-            <div class="cp-name">PTT EV Station</div>
-            <div class="cp-rate">~7.00 บ./หน่วย</div>
+          <button class="cpreset" onclick="selectPreset(this, 'PEA VOLTA')" data-peak="6.90" data-offpeak="5.90">
+            <div class="cp-name">PEA VOLTA</div><div class="cp-rate"></div>
           </button>
-          <button class="cpreset" onclick="selectPreset(this,8.00,'OR EV')">
-            <div class="cp-name">OR EV</div>
-            <div class="cp-rate">~8.00 บ./หน่วย</div>
+          <button class="cpreset" onclick="selectPreset(this, 'EA Anywhere')" data-peak="7.08" data-offpeak="7.08">
+            <div class="cp-name">EA Anywhere</div><div class="cp-rate"></div>
           </button>
-          <button class="cpreset" onclick="selectPreset(this,7.50,'BYD Official')">
-            <div class="cp-name">BYD Official</div>
-            <div class="cp-rate">~7.50 บ./หน่วย</div>
+          <button class="cpreset" onclick="selectPreset(this, 'MEA EV')" data-peak="7.50" data-offpeak="7.50">
+            <div class="cp-name">MEA EV</div><div class="cp-rate"></div>
           </button>
-          <button class="cpreset" onclick="selectPreset(this,0,'กำหนดเอง')" id="preset-custom">
-            <div class="cp-name">กำหนดเอง</div>
-            <div class="cp-rate">ระบุราคาด้านล่าง</div>
+          <button class="cpreset" onclick="selectPreset(this, 'EleX (Spark)')" data-peak="7.50" data-offpeak="7.50">
+            <div class="cp-name">EleX (Spark)</div><div class="cp-rate"></div>
+          </button>
+           <button class="cpreset" onclick="selectPreset(this, 'EVolt')" data-peak="8.00" data-offpeak="8.00">
+            <div class="cp-name">EVolt</div><div class="cp-rate"></div>
+          </button>
+          <button class="cpreset" onclick="selectPreset(this, 'กำหนดเอง')" data-peak="0" data-offpeak="0" id="preset-custom">
+            <div class="cp-name">กำหนดเอง</div><div class="cp-rate" style="margin-top:4px">ระบุราคาด้านล่าง</div>
           </button>
         </div>
         <div class="field-row" style="margin-bottom:0">
           <div class="field">
             <label>ราคาต่อหน่วย (บาท)</label>
-            <input type="number" id="custom-price" value="6.50" step="0.01">
+            <input type="number" id="custom-price" value="7.50" step="0.01">
           </div>
           <div class="field">
             <label>ค่าบริการ (บาท)</label>
@@ -231,12 +240,12 @@
     </div>
 
     <div class="ft-note">
-      <i class="ti ti-info-circle" style="font-size:16px; color: var(--color-accent); flex-shrink: 0"></i>
-      <span id="ft-note-text">ประเภท 1.3 TOU + Ft 0.1623 บาท/หน่วย งวด พ.ค.–ส.ค. 2569 + VAT 7% | อัตราสาธารณะเป็นค่าประมาณ</span>
+      <i class="ti ti-info-circle" style="font-size:18px; color: var(--color-accent); flex-shrink: 0"></i>
+      <span id="ft-note-text">ประเภท 1.3 TOU + Ft 0.1623 บาท/หน่วย งวด พ.ค.–ส.ค. 2569 + VAT 7% | อัตราสาธารณะเป็นค่าประมาณสำหรับ DC Fast Charge ทั่วไป</span>
     </div>
   </div>
 
-  <p class="stitle"><i class="ti ti-receipt"></i>ผลการคำนวณ</p>
+  <p class="stitle"><i class="ti ti-receipt" style="font-size:16px;"></i>ผลการคำนวณ</p>
   <div class="card">
     <div class="rg">
       <div class="metric"><div class="ml">ชาร์จเพิ่ม</div><div class="mv" id="r-pct">—</div><div class="mu">% ของแบต</div></div>
@@ -283,15 +292,51 @@ function setMode(m) {
   calc();
 }
 
-function selectPreset(el, rate, name) {
+function selectPreset(el, name) {
   document.querySelectorAll('.cpreset').forEach(b => b.classList.remove('sel'));
   el.classList.add('sel');
-  if(rate > 0) { document.getElementById('custom-price').value = rate; }
+  
+  const peak = parseFloat(el.getAttribute('data-peak'));
+  const offpeak = parseFloat(el.getAttribute('data-offpeak'));
+  
+  if (peak > 0) {
+    const currentRate = isOffPeakNow() ? offpeak : peak;
+    document.getElementById('custom-price').value = currentRate.toFixed(2);
+  }
   calc();
 }
 
+function updatePresetUI() {
+  const isOff = isOffPeakNow();
+  document.querySelectorAll('.cpreset[data-peak]').forEach(btn => {
+    const peak = parseFloat(btn.getAttribute('data-peak'));
+    const offpeak = parseFloat(btn.getAttribute('data-offpeak'));
+    
+    if (peak === 0) return; 
+    
+    const rateDiv = btn.querySelector('.cp-rate');
+    const currentRate = isOff ? offpeak : peak;
+    
+    if (peak === offpeak) {
+      rateDiv.textContent = `~${peak.toFixed(2)} บ./หน่วย`;
+    } else {
+      const badgeColor = isOff ? '#15803d' : '#c2410c';
+      const badgeBg = isOff ? '#dcfce7' : '#ffedd5';
+      const badgeText = isOff ? 'Off-Peak' : 'On-Peak';
+      rateDiv.innerHTML = `~${currentRate.toFixed(2)} บ. <span style="font-size:10px; font-weight:600; color:${badgeColor}; background-color:${badgeBg}; padding:2px 4px; border-radius:4px; margin-left:4px;">${badgeText}</span>`;
+    }
+  });
+
+  const selPreset = document.querySelector('.cpreset.sel');
+  if (selPreset && parseFloat(selPreset.getAttribute('data-peak')) > 0) {
+    const p = parseFloat(selPreset.getAttribute('data-peak'));
+    const op = parseFloat(selPreset.getAttribute('data-offpeak'));
+    document.getElementById('custom-price').value = (isOff ? op : p).toFixed(2);
+  }
+}
+
 function getRate() {
-  if(mode==='custom') return parseFloat(document.getElementById('custom-price').value)||6.50;
+  if(mode==='custom') return parseFloat(document.getElementById('custom-price').value)||7.50;
   if(mode==='peak') return PEAK_FINAL;
   if(mode==='offpeak') return OFFPEAK_FINAL;
   return isOffPeakNow() ? OFFPEAK_FINAL : PEAK_FINAL;
@@ -322,6 +367,7 @@ function updateBanner() {
 }
 
 function calc() {
+  updatePresetUI();
   updateBanner();
   const batTotal = parseFloat(document.getElementById('bat-total').value)||50.25;
   const eff = (parseFloat(document.getElementById('efficiency').value)||90)/100;
