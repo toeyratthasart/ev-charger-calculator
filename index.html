@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
-  <title>SHIMA-CHAN — EV Charging Cost</title>
+  <title>SHIMA-CHAN - EV Charging Cost</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   
   <style>
   :root {
-    /* ปรับโทนสีหลักให้ดูนุ่มนวลและทันสมัยขึ้น */
-    --bg-main: #f0f4f8; 
-    --bg-card: #ffffff;
-    --text-primary: #1e293b; /* สีเทาเข้มเกือบดำ */
-    --text-secondary: #64748b; /* สีเทากลาง */
-    --text-tertiary: #94a3b8; /* สีเทาอ่อน */
-    --color-accent: #3b82f6; /* สีน้ำเงินสดใส */
-    --radius-lg: 20px; /* เพิ่มความโค้งมนให้ดูน่าใช้งาน */
+    /* ธีมสีใหม่: Premium Midnight Tech (สไตล์แอป EV ยุคใหม่) */
+    --bg-main: #0b0f19;        /* สีพื้นหลังภายนอก ดำลึกแบบพรีเมียม */
+    --bg-card: #161f30;        /* สีกล่องการ์ด เทาเข้ม Slate */
+    --bg-input: #242f47;       /* สีพื้นหลังช่องกรอกข้อมูล */
+    --text-primary: #f8fafc;   /* สีตัวอักษรหลัก ขาวนวลสบายตา */
+    --text-secondary: #94a3b8; /* สีตัวอักษรรอง เทาอ่อน */
+    --text-tertiary: #64748b;  /* สีเทาเข้มสำหรับส่วนที่ต้องการพรางสายตา */
+    --color-accent: #0ea5e9;   /* สีฟ้านีออน (Electric Cyan) */
+    --radius-lg: 20px;
     --radius-md: 14px;
-    --shadow-soft: 0 8px 24px rgba(149, 157, 165, 0.1); /* ปรับเงาให้นุ่มลึกขึ้น */
-    --border-color: #e2e8f0;
+    --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.4);
+    --border-color: #24324d;
   }
 
   * { box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -35,39 +36,42 @@
   
   /* Header Premium Look */
   .header { display: flex; align-items: center; gap: 16px; padding: 12px 4px 24px; border-bottom: 1px solid var(--border-color); margin-bottom: 24px;}
-  .logo-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-soft); flex-shrink: 0; gap: 4px; padding: 10px; border: 1px solid rgba(0,0,0,0.03); }
+  .logo-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-soft); flex-shrink: 0; gap: 4px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
   .logo-wrap svg { width: 100%; height: auto; }
-  .car-name { font-size: 10px; font-weight: 700; letter-spacing: .05em; color: #ef4444; text-align: center; line-height: 1; } /* สีแดงที่สดขึ้น */
+  .car-name { font-size: 10px; font-weight: 700; letter-spacing: .05em; color: #ef4444; text-align: center; line-height: 1; } 
   .header-text h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.5px; color: var(--text-primary); }
   .header-text p { font-size: 14px; color: var(--text-secondary); margin: 0; font-weight: 400; }
   
   .stitle { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; margin: 24px 0 10px 4px; display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px; }
   
   /* Modern iOS Card Style */
-  .card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.02); }
+  .card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.02); }
   
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
   .field { display: flex; flex-direction: column; gap: 8px; }
   .field label { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
-  .field input[type=number] { width: 100%; padding: 14px; border: 1px solid var(--border-color); background: #f8fafc; border-radius: 12px; font-size: 16px; font-weight: 600; color: var(--text-primary); outline: none; transition: all 0.2s ease; }
-  .field input[type=number]:focus { background: #fff; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+  .field input[type=number] { width: 100%; padding: 14px; border: 1px solid var(--border-color); background: var(--bg-input); border-radius: 12px; font-size: 16px; font-weight: 600; color: var(--text-primary); outline: none; transition: all 0.2s ease; }
+  .field input[type=number]:focus { background: #1e293b; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15); }
   
-  /* iOS-like Sliders */
-  .sl-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
-  .sl-row label { font-size: 14px; font-weight: 500; color: var(--text-primary); min-width: 90px; }
-  .sl-row input[type=range] { flex: 1; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; background: #e2e8f0; outline: none; }
-  .sl-row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer; border: 1px solid rgba(0,0,0,0.05); }
-  .sval { font-size: 16px; font-weight: 600; min-width: 48px; text-align: right; color: var(--color-accent); }
+  /* iOS-like Sliders with Input Box Box Layout */
+  .sl-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .sl-row label { font-size: 14px; font-weight: 500; color: var(--text-primary); min-width: 85px; }
+  .sl-row input[type=range] { flex: 1; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; background: var(--bg-input); outline: none; }
+  .sl-row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.4); cursor: pointer; }
   
-  .prog-wrap { background: #e2e8f0; border-radius: 100px; height: 8px; overflow: hidden; margin: 20px 0 8px; }
-  .prog-bar { height: 100%; border-radius: 100px; background: var(--color-accent); transition: width .3s ease; }
+  /* ช่องกรอกตัวเลขแบบ iOS Badge ข้างๆ Slider */
+  .sl-row input[type=number] { width: 64px; padding: 8px 6px; text-align: center; border: 1px solid var(--border-color); background: var(--bg-input); border-radius: 8px; font-size: 14px; font-weight: 700; color: var(--color-accent); outline: none; }
+  .sl-row input[type=number]:focus { border-color: var(--color-accent); background: #1e293b; }
+
+  .prog-wrap { background: var(--bg-input); border-radius: 100px; height: 8px; overflow: hidden; margin: 20px 0 8px; border: 1px solid rgba(255,255,255,0.02); }
+  .prog-bar { height: 100%; border-radius: 100px; background: linear-gradient(90deg, #0ea5e9 0%, #22c55e 100%); transition: width .3s ease; }
   .prog-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-secondary); font-weight: 500; }
   
   /* Banners with softer tones */
   .tou-banner { border-radius: var(--radius-md); padding: 14px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-weight: 600; border: 1px solid transparent;}
-  .tou-banner.peak { background: #fff7ed; color: #c2410c; border-color: #ffedd5; }
-  .tou-banner.offpeak { background: #f0fdf4; color: #15803d; border-color: #dcfce7; }
-  .tou-banner.custom { background: #eff6ff; color: #1d4ed8; border-color: #dbeafe; }
+  .tou-banner.peak { background: rgba(249, 115, 22, 0.1); color: #ff9d43; border-color: rgba(249, 115, 22, 0.2); }
+  .tou-banner.offpeak { background: rgba(34, 197, 94, 0.1); color: #4ade80; border-color: rgba(34, 197, 94, 0.2); }
+  .tou-banner.custom { background: rgba(14, 165, 233, 0.1); color: #38bdf8; border-color: rgba(14, 165, 233, 0.2); }
   .tdot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .tdot.peak { background: #f97316; }
   .tdot.offpeak { background: #22c55e; }
@@ -75,48 +79,45 @@
   .ttext { font-size: 14px; line-height: 1.2; }
   
   .tou-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-  .tc { border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease; }
-  .tc:hover { transform: translateY(-2px); }
-  .tc.peak { background: #fffaf5; border: 1px solid #ffedd5; }
-  .tc.offpeak { background: #f8fafc; border: 1px solid #e2e8f0; } /* ปรับสี offpeak ให้ดูคลีนขึ้น */
+  .tc { border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-color); background: rgba(255,255,255,0.01); }
   .tc .tcl { font-size: 12px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
   .tc .tcl i { margin-top: 1px; }
-  .tc.peak .tcl { color: #d97706; }
-  .tc.offpeak .tcl { color: #0f172a; }
+  .tc.peak .tcl { color: #f97316; }
+  .tc.offpeak .tcl { color: #22c55e; }
   .tc .tcr { font-size: 26px; font-weight: 700; color: var(--text-primary); }
-  .tc .tcs { font-size: 12px; margin-top: 6px; color: var(--text-tertiary); }
+  .tc .tcs { font-size: 11px; margin-top: 6px; color: var(--text-secondary); }
   
-  /* Segmented Control Mode Tabs */
-  .mode-wrap { display: flex; background: #f1f5f9; padding: 4px; border-radius: 14px; margin-bottom: 20px; gap: 4px; border: 1px solid var(--border-color); }
-  .mbtn { flex: 1; text-align: center; font-size: 13px; font-weight: 600; padding: 12px 6px; border-radius: 10px; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; }
-  .mbtn.active { background: #ffffff; color: var(--color-accent); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  /* Segmented Control Mode Tabs (iOS Dark Style) */
+  .mode-wrap { display: flex; background: #0b0f19; padding: 4px; border-radius: 14px; margin-bottom: 20px; gap: 4px; border: 1px solid var(--border-color); }
+  .mbtn { flex: 1; text-align: center; font-size: 13px; font-weight: 600; padding: 12px 6px; border-radius: 10px; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+  .mbtn.active { background: var(--bg-card); color: var(--color-accent); box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.03); }
   
   /* Public Charger Presets */
-  .custom-box { background: #f8fafc; border-radius: var(--radius-md); padding: 20px; margin-bottom: 16px; border: 1px solid var(--border-color); }
+  .custom-box { background: rgba(0,0,0,0.15); border-radius: var(--radius-md); padding: 20px; margin-bottom: 16px; border: 1px solid var(--border-color); }
   .custom-box .cb-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
   .charger-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
-  .cpreset { border-radius: 12px; padding: 14px 12px; border: 1px solid var(--border-color); background: #fff; cursor: pointer; text-align: left; transition: all .2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
-  .cpreset:hover { border-color: #cbd5e1; transform: translateY(-1px); }
-  .cpreset.sel { border-color: var(--color-accent); background: #eff6ff; box-shadow: 0 0 0 1px var(--color-accent); }
+  .cpreset { border-radius: 12px; padding: 14px 12px; border: 1px solid var(--border-color); background: var(--bg-card); cursor: pointer; text-align: left; transition: all .2s ease; }
+  .cpreset:hover { border-color: var(--text-tertiary); }
+  .cpreset.sel { border-color: var(--color-accent); background: rgba(14, 165, 233, 0.08); box-shadow: 0 0 0 1px var(--color-accent); }
   .cpreset .cp-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
   .cpreset.sel .cp-name { color: var(--color-accent); }
   .cpreset .cp-rate { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
   
-  .ft-note { padding: 14px 16px; background: #f8fafc; border-radius: 12px; font-size: 12px; color: var(--text-secondary); display: flex; gap: 10px; line-height: 1.5; align-items: flex-start; border: 1px solid var(--border-color); }
+  .ft-note { padding: 14px 16px; background: rgba(0,0,0,0.15); border-radius: 12px; font-size: 12px; color: var(--text-secondary); display: flex; gap: 10px; line-height: 1.5; align-items: flex-start; border: 1px solid var(--border-color); }
   
   /* Clean Metrics Grid */
   .rg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
-  .metric { background: #f8fafc; border-radius: var(--radius-md); padding: 16px; border: 1px solid var(--border-color); }
+  .metric { background: rgba(255,255,255,0.01); border-radius: var(--radius-md); padding: 16px; border: 1px solid var(--border-color); }
   .metric .ml { font-size: 13px; color: var(--text-secondary); font-weight: 500; margin-bottom: 8px; }
   .metric .mv { font-size: 24px; font-weight: 700; color: var(--text-primary); }
   .metric .mu { font-size: 13px; color: var(--text-tertiary); margin-top: 4px; }
   
-  /* Grand Total Box */
-  .total-row { background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; border: 1px solid #c7d2fe; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1); }
-  .total-row .tl { font-size: 15px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: 0.5px; }
+  /* Grand Total Box (Glow effect style) */
+  .total-row { background: linear-gradient(135deg, #162542 0%, #0c1f38 100%); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; border: 1px solid #1d4ed8; box-shadow: 0 4px 20px rgba(14, 165, 233, 0.15); }
+  .total-row .tl { font-size: 15px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; }
   .total-row .right-total { display: flex; align-items: baseline; gap: 8px; justify-content: center; }
-  .total-row .tv { font-size: 46px; font-weight: 800; color: #3730a3; letter-spacing: -1px; line-height: 1; }
-  .total-row .tu { font-size: 18px; font-weight: 600; color: #4338ca; }
+  .total-row .tv { font-size: 46px; font-weight: 800; color: #ffffff; letter-spacing: -1px; line-height: 1; text-shadow: 0 2px 10px rgba(14, 165, 233, 0.3); }
+  .total-row .tu { font-size: 18px; font-weight: 600; color: #38bdf8; }
   .note-row { font-size: 12px; color: var(--text-secondary); margin-top: 16px; text-align: center; font-weight: 500; line-height: 1.6; padding: 0 10px; }
 
   @media (max-width: 380px) {
@@ -155,15 +156,16 @@
         <input type="number" id="efficiency" value="90" step="1" min="50" max="100">
       </div>
     </div>
+    <!-- ลากแถบ หรือ พิมพ์ตัวเลขก็ได้อย่างอิสระ -->
     <div class="sl-row">
       <label>แบตปัจจุบัน</label>
       <input type="range" id="bat-now" min="0" max="100" value="54" step="1">
-      <span class="sval" id="bat-now-val">54%</span>
+      <input type="number" id="bat-now-num" min="0" max="100" value="54">
     </div>
     <div class="sl-row">
       <label>ชาร์จถึง</label>
       <input type="range" id="bat-target" min="1" max="100" value="100" step="1">
-      <span class="sval" id="bat-target-val">100%</span>
+      <input type="number" id="bat-target-num" min="1" max="100" value="100">
     </div>
     <div class="prog-wrap"><div class="prog-bar" id="prog-fill" style="width:54%"></div></div>
     <div class="prog-labels"><span id="pl-now">ปัจจุบัน 54%</span><span id="pl-target">เป้าหมาย 100%</span></div>
@@ -200,7 +202,6 @@
       <div class="custom-box">
         <div class="cb-title">เลือก Preset หัวชาร์จ DC</div>
         <div class="charger-grid" id="preset-grid">
-           <!-- อ้างอิงราคาสำหรับ DC Fast Charge -->
           <button class="cpreset" onclick="selectPreset(this, 'RÊVERSHARGER')" data-peak="8.00" data-offpeak="8.00">
             <div class="cp-name">RÊVERSHARGER</div><div class="cp-rate"></div>
           </button>
@@ -320,8 +321,8 @@ function updatePresetUI() {
     if (peak === offpeak) {
       rateDiv.textContent = `~${peak.toFixed(2)} บ./หน่วย`;
     } else {
-      const badgeColor = isOff ? '#15803d' : '#c2410c';
-      const badgeBg = isOff ? '#dcfce7' : '#ffedd5';
+      const badgeColor = isOff ? '#4ade80' : '#f97316';
+      const badgeBg = isOff ? 'rgba(34, 197, 94, 0.15)' : 'rgba(249, 115, 22, 0.15)';
       const badgeText = isOff ? 'Off-Peak' : 'On-Peak';
       rateDiv.innerHTML = `~${currentRate.toFixed(2)} บ. <span style="font-size:10px; font-weight:600; color:${badgeColor}; background-color:${badgeBg}; padding:2px 4px; border-radius:4px; margin-left:4px;">${badgeText}</span>`;
     }
@@ -367,17 +368,16 @@ function updateBanner() {
 }
 
 function calc() {
-  updatePresetUI();
   updateBanner();
   const batTotal = parseFloat(document.getElementById('bat-total').value)||50.25;
   const eff = (parseFloat(document.getElementById('efficiency').value)||90)/100;
-  const now = parseInt(document.getElementById('bat-now').value);
-  const target = parseInt(document.getElementById('bat-target').value);
+  
+  // ดึงค่าจากช่องพิมพ์ตัวเลข
+  const now = parseInt(document.getElementById('bat-now-num').value)||0;
+  const target = parseInt(document.getElementById('bat-target-num').value)||100;
   const sessionFee = mode==='custom'?(parseFloat(document.getElementById('session-fee').value)||0):0;
   const rate = getRate();
 
-  document.getElementById('bat-now-val').textContent = now+'%';
-  document.getElementById('bat-target-val').textContent = target+'%';
   document.getElementById('pl-now').textContent = 'ปัจจุบัน '+now+'%';
   document.getElementById('pl-target').textContent = 'เป้าหมาย '+target+'%';
   document.getElementById('prog-fill').style.width = Math.max(0,Math.min(100,now))+'%';
@@ -400,20 +400,56 @@ function calc() {
   document.getElementById('r-note').textContent = note;
 }
 
-['bat-total','efficiency','custom-price','session-fee'].forEach(id=>{
-  const el=document.getElementById(id); if(el) el.addEventListener('input',calc);
-});
-document.getElementById('bat-now').addEventListener('input',function(){
-  const n=parseInt(this.value), t=parseInt(document.getElementById('bat-target').value);
-  if(n>=t) document.getElementById('bat-target').value=Math.min(100,n+1);
-  calc();
-});
-document.getElementById('bat-target').addEventListener('input',function(){
-  const t=parseInt(this.value), n=parseInt(document.getElementById('bat-now').value);
-  if(t<=n) document.getElementById('bat-now').value=Math.max(0,t-1);
+// ผูกฟังก์ชันปุ่ม Slider และ ช่องกรอกตัวเลขให้วิ่งหากัน (Two-Way Sync)
+const sliderNow = document.getElementById('bat-now');
+const inputNow = document.getElementById('bat-now-num');
+const sliderTarget = document.getElementById('bat-target');
+const inputTarget = document.getElementById('bat-target-num');
+
+sliderNow.addEventListener('input', function() {
+  inputNow.value = this.value;
+  if(parseInt(this.value) >= parseInt(sliderTarget.value)) {
+    sliderTarget.value = Math.min(100, parseInt(this.value) + 1);
+    inputTarget.value = sliderTarget.value;
+  }
   calc();
 });
 
+inputNow.addEventListener('input', function() {
+  let val = Math.max(0, Math.min(100, parseInt(this.value) || 0));
+  sliderNow.value = val;
+  if(val >= parseInt(sliderTarget.value)) {
+    sliderTarget.value = Math.min(100, val + 1);
+    inputTarget.value = sliderTarget.value;
+  }
+  calc();
+});
+
+sliderTarget.addEventListener('input', function() {
+  inputTarget.value = this.value;
+  if(parseInt(this.value) <= parseInt(sliderNow.value)) {
+    sliderNow.value = Math.max(0, parseInt(this.value) - 1);
+    inputNow.value = sliderNow.value;
+  }
+  calc();
+});
+
+inputTarget.addEventListener('input', function() {
+  let val = Math.max(0, Math.min(100, parseInt(this.value) || 0));
+  sliderTarget.value = val;
+  if(val <= parseInt(sliderNow.value)) {
+    sliderNow.value = Math.max(0, val - 1);
+    inputNow.value = sliderNow.value;
+  }
+  calc();
+});
+
+['bat-total','efficiency','custom-price','session-fee'].forEach(id=>{
+  const el=document.getElementById(id); if(el) el.addEventListener('input',calc);
+});
+
+// เริ่มต้นรันแอปครั้งแรก
+updatePresetUI();
 calc();
 setInterval(()=>{if(mode==='auto')calc();},60000);
 </script>
